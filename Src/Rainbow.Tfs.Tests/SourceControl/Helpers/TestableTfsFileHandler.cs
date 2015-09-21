@@ -1,0 +1,58 @@
+using Microsoft.TeamFoundation.Client;
+using Microsoft.TeamFoundation.VersionControl.Client;
+using Rainbow.Tfs.SourceControl;
+
+namespace Rainbow.Tfs.Tests.SourceControl.Helpers
+{
+	public class TestableTfsFileHandler : TfsFileHandler
+	{
+		private readonly bool _fileExistsOnServer;
+		private readonly bool _hasPendingChanges;
+		private readonly int _filesUpdated;
+		
+		public override bool FileExistsOnFileSystem { get; }
+		public override bool FileExistsOnServer { get { return _fileExistsOnServer; } }
+
+		public TestableTfsFileHandler(TfsTeamProjectCollection tfsTeamProjectCollection, string filename, bool fileExistsOnServer, bool fileExistsOnFileSystem, bool hasPendingChanges)
+			: this(tfsTeamProjectCollection, filename, fileExistsOnServer, fileExistsOnFileSystem, hasPendingChanges, 0) { }
+
+		public TestableTfsFileHandler(TfsTeamProjectCollection tfsTeamProjectCollection, string filename, bool fileExistsOnServer, bool fileExistsOnFileSystem, bool hasPendingChanges, int filesUpdated) : base(tfsTeamProjectCollection, filename)
+		{
+			FileExistsOnFileSystem = fileExistsOnFileSystem;
+			_fileExistsOnServer = fileExistsOnServer;
+			_hasPendingChanges = hasPendingChanges;
+			_filesUpdated = filesUpdated;
+		}
+
+		protected override bool GetFileExistsOnServer()
+		{
+			return _fileExistsOnServer;
+		}
+
+		protected override int AddFileToTfs()
+		{
+			return _filesUpdated;
+		}
+
+		protected override int DeleteFileInTfs()
+		{
+			return _filesUpdated;
+		}
+
+		protected override int EditFileInTfs()
+		{
+			return _filesUpdated;
+		}
+
+		protected override bool HasPendingChanges(ChangeType changeType)
+		{
+			return _hasPendingChanges;
+		}
+
+		protected override void UndoNonMatchingPendingChanges(ChangeType changeType)
+		{
+			// nothing to do here
+			return;
+		}
+	}
+}
