@@ -7,15 +7,18 @@ This library aims to solve file system access denied errors when using Unicorn u
 ## Configuration Notes
 ### Local TFS Cache
 
-TFS uses local TFS cache to maintain the local workspace and keep track of files and related changesets. In order to access the appropriate set of TFS cache, IIS must be configured to allow for ASP.NET Impersonation such that the application pool assumes the identity of the developer and not the local system account.
+TFS uses local cache to maintain the local workspace and keep track of files and related changesets. In order to access the appropriate set of TFS cache, IIS must be configured to allow for ASP.NET Impersonation such that the application pool assumes the identity of the developer and not the local system account.
 
 Note: configuring the application pool for ASP.NET Impersonation should only be set on developer workstations. Do not make this change to environments outside of development. 
 
 ### 32-Bit Dependencies
 
-The library dependencies for access via the TFS API are built for only 32-bit support. Application pools must support 32-bit applications to properly communicate with TFS.
+The library dependencies for access via the TFS API are built for 32-bit support. Application pools must support 32-bit applications to properly communicate with TFS.
 
 ## Configuration Steps
+### Installation
+Install via NuGet (coming soon...)
+
 ### IIS
 
 1. In IIS, select your application pool and click on _Advanced Settings_
@@ -31,7 +34,9 @@ The library dependencies for access via the TFS API are built for only 32-bit su
 
 ### Rainbow
 
-For integration with Rainbow, the default file sync configuration should be replaced with a reference to this library. Included will be your user name, password and domain for access to your TFS server.
+For integration with Rainbow, the default file sync configuration will be replaced with a reference to this library. Included will be your user name, password and domain for access to your TFS server. Update the Unicorn configuration patch under _\Standard Config Files\Unicorn.Tfs.config_.
+
+Follow the same pattern for any additional unicorn configurations.
 
 ```
 <sourceControlSync type="Rainbow.Tfs.SourceControl.FileSyncTfs,Rainbow.Tfs" singleInstance="true" username="TFS user name" Password="TFS password" Domain="TFS user name domain" />
