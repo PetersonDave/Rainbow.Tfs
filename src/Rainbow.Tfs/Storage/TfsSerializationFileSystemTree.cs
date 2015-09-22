@@ -20,11 +20,11 @@ namespace Rainbow.Tfs.Storage
 
 		protected override void WriteItem(IItemData item, string path)
 		{
-			EditPreProcessing(path);
+			_sourceControlManager.EditPreProcessing(path);
 
 			base.WriteItem(item, path);
-	
-			EditPostProcessing(path);
+
+			_sourceControlManager.EditPostProcessing(path);
 		}
 
 		public override bool Remove(IItemData item)
@@ -61,16 +61,6 @@ namespace Rainbow.Tfs.Storage
 			}
 
 			return true;
-		}
-
-		private bool EditPreProcessing(string filename)
-		{
-			return _sourceControlManager.EditPreProcessing(filename);
-		}
-
-		private bool EditPostProcessing(string filename)
-		{
-			return _sourceControlManager.EditPostProcessing(filename);
 		}
 	}
 }
