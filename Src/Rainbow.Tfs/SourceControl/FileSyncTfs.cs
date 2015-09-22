@@ -2,7 +2,6 @@
 using System.Net;
 using System.Web;
 using Microsoft.TeamFoundation.VersionControl.Client;
-using Rainbow.SourceControl;
 
 namespace Rainbow.Tfs.SourceControl
 {
