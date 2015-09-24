@@ -73,6 +73,11 @@ namespace Rainbow.Tfs.SourceControl
 			SourceControlSync = new FileSyncTfs(settings.Username, settings.Password, settings.Domain);
 		}
 
+		public SourceControlManager(ISourceControlSync sourceControlSync)
+		{
+			SourceControlSync = sourceControlSync;
+		}
+
 		public bool EditPreProcessing(string filename)
 		{
 			bool success = SourceControlSync.EditPreProcessing(filename);

@@ -1,4 +1,4 @@
-using Rainbow.SourceControl;
+using Rainbow.Tfs.SourceControl;
 
 namespace Rainbow.Tfs.Tests.SourceControl.Helpers
 {
