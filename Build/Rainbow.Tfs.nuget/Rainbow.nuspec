@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package>
+	<metadata>
+		<id>Rainbow.Tfs</id>
+		<version>$version$</version>
+		<authors>David Peterson</authors>
+		<owners>David Peterson</owners>
+		<licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+		<projectUrl>https://github.com/PetersonDave/Rainbow.Tfs</projectUrl>
+		<iconUrl></iconUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>TFS Plug-In for Rainbow</description>
+		<copyright>Copyright 2015</copyright>
+		<tags>sitecore serialization tfs</tags>
+	<dependencies>
+		<dependency id="Rainbow.Core" version="$version$" />
+	</dependencies>
+	</metadata>
+	<files>
+		<file src="..\..\src\Rainbow.Tfs\Standard Config Files\Unicorn.Tfs.config" target="content\App_Config\Include\Unicorn" />
+	</files>
+</package>
