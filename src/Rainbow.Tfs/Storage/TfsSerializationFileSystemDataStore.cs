@@ -15,9 +15,9 @@ namespace Rainbow.Tfs.Storage
 			_sourceControlManager = new SourceControlManager();
 		}
 
-		protected override SerializationFileSystemTree CreateTree(TreeRoot root)
+		protected override SerializationFileSystemTree CreateTree(TreeRoot root, ISerializationFormatter formatter, bool useDataCache)
 		{
-			var tree = new TfsSerializationFileSystemTree(root.Name, root.Path, root.DatabaseName, Path.Combine(PhysicalRootPath, root.Name), Formatter, UseDataCache);
+			var tree = new TfsSerializationFileSystemTree(root.Name, root.Path, root.DatabaseName, Path.Combine(PhysicalRootPath, root.Name), formatter, useDataCache);
 			tree.TreeItemChanged += metadata =>
 			{
 				foreach (var watcher in ChangeWatchers) watcher(metadata, tree.DatabaseName);
