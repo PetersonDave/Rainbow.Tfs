@@ -7,10 +7,11 @@ namespace Rainbow.Tfs.Tests.SourceControl.Helpers
 	public class TestableTfsFileHandler : TfsFileHandler
 	{
 		private readonly bool _fileExistsOnServer;
+		private readonly bool _fileExistsOnFileSystem;
 		private readonly bool _hasPendingChanges;
 		private readonly int _filesUpdated;
-		
-		public override bool FileExistsOnFileSystem { get; }
+
+		public override bool FileExistsOnFileSystem { get { return _fileExistsOnFileSystem; } }
 		public override bool FileExistsOnServer { get { return _fileExistsOnServer; } }
 
 		public TestableTfsFileHandler(TfsTeamProjectCollection tfsTeamProjectCollection, string filename, bool fileExistsOnServer, bool fileExistsOnFileSystem, bool hasPendingChanges)
@@ -18,7 +19,7 @@ namespace Rainbow.Tfs.Tests.SourceControl.Helpers
 
 		public TestableTfsFileHandler(TfsTeamProjectCollection tfsTeamProjectCollection, string filename, bool fileExistsOnServer, bool fileExistsOnFileSystem, bool hasPendingChanges, int filesUpdated) : base(tfsTeamProjectCollection, filename)
 		{
-			FileExistsOnFileSystem = fileExistsOnFileSystem;
+			_fileExistsOnFileSystem = fileExistsOnFileSystem;
 			_fileExistsOnServer = fileExistsOnServer;
 			_hasPendingChanges = hasPendingChanges;
 			_filesUpdated = filesUpdated;

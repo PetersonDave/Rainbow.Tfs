@@ -10,5 +10,4 @@ $solution = "$scriptRoot\..\Rainbow.Tfs.sln"
 $rainbowTfsAssembly = Get-Item "$scriptRoot\..\src\Rainbow.Tfs\bin\Release\Rainbow.Tfs.dll" | Select-Object -ExpandProperty VersionInfo
 $targetAssemblyVersion = $rainbowTfsAssembly.ProductVersion
 
-& $nuGet pack "$scriptRoot\Rainbow.Tfs.nuget\Rainbow.Tfs.nuspec" -version $targetAssemblyVersion
-& $nuGet pack "$scriptRoot\..\src\Rainbow.Tfs\Rainbow.Tfs.csproj" -Symbols -Prop Configuration=Release
+& $nuGet pack "$scriptRoot\..\src\Rainbow.Tfs\Rainbow.Tfs.csproj" -NoDefaultExcludes -Symbols -Prop Configuration=Release

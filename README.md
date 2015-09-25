@@ -34,9 +34,7 @@ Install via NuGet (coming soon...)
 
 ### Rainbow
 
-For integration with Rainbow, the default file sync configuration will be replaced with a reference to this library. Included will be your user name, password and domain for access to your TFS server. Update the Unicorn configuration patch under _\Standard Config Files\Unicorn.Tfs.config_.
-
-Follow the same pattern for any additional unicorn configurations.
+For integration with Rainbow, the default file sync configuration will be replaced with a reference to this library. Included will be your user name, password and domain for access to your TFS server. Update the Rainbow.Tfs configuration patch under _\App_Config\Include\Rainbow.Tfs.config_.
 
 ```
 <sourceControlSync type="Rainbow.Tfs.SourceControl.FileSyncTfs,Rainbow.Tfs" singleInstance="true" username="TFS user name" Password="TFS password" Domain="TFS user name domain" />
