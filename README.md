@@ -17,7 +17,7 @@ The library dependencies for access via the TFS API are built for 32-bit support
 
 ## Configuration Steps
 ### Installation
-Install via NuGet (coming soon...)
+(Install NuGet package)[https://www.nuget.org/packages/Rainbow.Tfs]
 
 ### IIS
 
