@@ -34,7 +34,7 @@ The library dependencies for access via the TFS API are built for 32-bit support
 
 ### Rainbow
 
-For integration with Rainbow, the default file sync configuration will be replaced with a reference to this library. Included will be your user name, password and domain for access to your TFS server. Update the Rainbow.Tfs configuration patch under _\App_Config\Include\Rainbow.Tfs.config_.
+For integration with Rainbow, the default file sync configuration will be replaced with a reference to this library. Included will be your user name, password and domain for access to your TFS server. Update the Rainbow.Tfs configuration patch under _\App_Config\Include\Unicorn.Tfs.config_.
 
 ```
 <configuration xmlns:patch="http://www.sitecore.net/xmlconfig/">
