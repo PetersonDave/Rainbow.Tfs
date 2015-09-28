@@ -29,6 +29,7 @@ namespace Rainbow.Tfs.Storage
 		public override void Clear()
 		{
 			if (!Directory.Exists(PhysicalRootPath)) return;
+			if (!_sourceControlManager.FileExistsInSourceControl(PhysicalRootPath)) return;
 
 			if (!_sourceControlManager.AllowFileSystemClear)
 			{

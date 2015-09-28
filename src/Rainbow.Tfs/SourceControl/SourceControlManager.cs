@@ -78,6 +78,11 @@ namespace Rainbow.Tfs.SourceControl
 			SourceControlSync = sourceControlSync;
 		}
 
+		public bool FileExistsInSourceControl(string filename)
+		{
+			return SourceControlSync.FileExistsInSourceControl(filename);
+		}
+
 		public bool EditPreProcessing(string filename)
 		{
 			bool success = SourceControlSync.EditPreProcessing(filename);

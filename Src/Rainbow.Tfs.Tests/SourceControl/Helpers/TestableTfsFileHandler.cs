@@ -25,7 +25,7 @@ namespace Rainbow.Tfs.Tests.SourceControl.Helpers
 			_filesUpdated = filesUpdated;
 		}
 
-		protected override bool GetFileExistsOnServer()
+		public override bool GetFileExistsOnServer()
 		{
 			return _fileExistsOnServer;
 		}

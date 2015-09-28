@@ -49,7 +49,7 @@
     </Reference>
     <Reference Include="Rainbow, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Rainbow\Rainbow.dll</HintPath>
+      <HintPath>..\..\packages\Rainbow.Core.1.0.0-rc4\lib\net45\Rainbow.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Sitecore.Kernel">
@@ -77,6 +77,9 @@
     <Compile Include="SourceControl\TfsPersistentConnection.cs" />
     <Compile Include="Storage\TfsSerializationFileSystemDataStore.cs" />
     <Compile Include="Storage\TfsSerializationFileSystemTree.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

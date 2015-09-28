@@ -54,10 +54,8 @@
       <HintPath>..\..\packages\NSubstitute.1.8.2.0\lib\net45\NSubstitute.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Rainbow, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Rainbow\Rainbow.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Rainbow">
+      <HintPath>..\..\packages\Rainbow.Core.1.0.0-rc4\lib\net45\Rainbow.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

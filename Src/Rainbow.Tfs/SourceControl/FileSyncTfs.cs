@@ -46,6 +46,13 @@ namespace Rainbow.Tfs.SourceControl
 			Workstation.Current.EnsureUpdateWorkspaceInfoCache(versionControlServer, versionControlServer.AuthorizedUser);
 		}
 
+		public bool FileExistsInSourceControl(string filename)
+		{
+			var connection = GetTfsPersistentConnection();
+			var handler = new TfsFileHandler(connection.TfsTeamProjectCollection, filename);
+			return handler.GetFileExistsOnServer();
+		}
+
 		public bool DeletePreProcessing(string filename)
 		{
 			var connection = GetTfsPersistentConnection();

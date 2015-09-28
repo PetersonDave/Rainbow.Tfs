@@ -75,7 +75,7 @@ namespace Rainbow.Tfs.SourceControl
 			return workspace;
 		}
 
-		protected virtual bool GetFileExistsOnServer()
+		public virtual bool GetFileExistsOnServer()
 		{
 			bool fileExistsInTfs;
 

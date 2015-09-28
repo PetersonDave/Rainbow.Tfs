@@ -2,7 +2,7 @@
 
 A Team Foundation Server plug-in for the [Rainbow](https://github.com/kamsar/Rainbow) serialization provider used by [Unicorn](https://github.com/kamsar/Unicorn). 
 
-This library aims to solve file system access denied errors when using Unicorn under TFS source control for versions 2010 and older. Solutions using such versions of TFS, requiring TFS checkout actions prior to editing files on the file system, are candidates for inclusion of this library.
+This library aims to solve file system access denied errors when using Unicorn under TFS source control for versions 2010 and older (or Server Workspaces in 2012 and later). Solutions using such versions of TFS, requiring TFS checkout actions prior to editing files on the file system, are candidates for inclusion of this library.
 
 ## Configuration Notes
 ### Local TFS Cache

@@ -12,6 +12,11 @@ namespace Rainbow.Tfs.Tests.SourceControl.Helpers
 		}
 
 		public bool AllowFileSystemClear { get; private set; }
+		public bool FileExistsInSourceControl(string filename)
+		{
+			return _result;
+		}
+
 		public bool DeletePreProcessing(string filename)
 		{
 			return _result;
