@@ -175,6 +175,9 @@ namespace Rainbow.Tfs.SourceControl
 			// if the file doesn't exist on the TFS server, we're out of sync. Allow the local deletion.
 			if (!FileExistsOnServer)
 			{
+				// Undo any pending adds (the file has yet to be saved to the server)
+				UndoNonMatchingPendingChanges(ChangeType.Add);
+
 				Sitecore.Diagnostics.Log.Warn("[Rainbow.Tfs] TFS File Handler: Attempting to delete a file that doesn't exist on the server for " + _filename, this);
 				return true;
 			}

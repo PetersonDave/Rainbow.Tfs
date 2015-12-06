@@ -31,6 +31,7 @@ namespace Rainbow.Tfs.Storage
 		protected override void BeforeFilesystemDelete(string path)
 		{
 			_sourceControlManager.DeletePreProcessing(path);
+			
 			base.BeforeFilesystemDelete(path);
 		}
 
@@ -56,6 +57,19 @@ namespace Rainbow.Tfs.Storage
 					lock (FileUtil.GetFileLock(descendant.SerializedItemId))
 					{
 						BeforeFilesystemDelete(descendant.SerializedItemId);
+
+						if (!_sourceControlManager.FileExistsInSourceControl(descendant.SerializedItemId))
+						{
+							try
+							{
+								File.Delete(descendant.SerializedItemId);
+							}
+							catch (Exception exception)
+							{
+								throw new SfsDeleteException("Error deleting SFS item " + descendant.SerializedItemId, exception);
+							}
+						}
+
 						AfterFilesystemDelete(descendant.SerializedItemId);
 
 						var childrenDirectory = Path.ChangeExtension(descendant.SerializedItemId, null);
@@ -63,6 +77,19 @@ namespace Rainbow.Tfs.Storage
 						if (Directory.Exists(childrenDirectory))
 						{
 							BeforeFilesystemDelete(childrenDirectory);
+
+							if (!_sourceControlManager.FileExistsInSourceControl(childrenDirectory))
+							{
+								try
+								{
+									Directory.Delete(childrenDirectory, true);
+								}
+								catch (Exception exception)
+								{
+									throw new SfsDeleteException("Error deleting SFS directory " + childrenDirectory, exception);
+								}
+							}
+
 							AfterFilesystemDelete(childrenDirectory);
 						}
 
@@ -70,6 +97,19 @@ namespace Rainbow.Tfs.Storage
 						if (Directory.Exists(shortChildrenDirectory))
 						{
 							BeforeFilesystemDelete(shortChildrenDirectory);
+
+							if (!_sourceControlManager.FileExistsInSourceControl(childrenDirectory))
+							{
+								try
+								{
+									Directory.Delete(shortChildrenDirectory);
+								}
+								catch (Exception exception)
+								{
+									throw new SfsDeleteException("Error deleting SFS directory " + shortChildrenDirectory, exception);
+								}
+							}
+
 							AfterFilesystemDelete(shortChildrenDirectory);
 						}
 					}
