@@ -1,7 +1,12 @@
-﻿using Rainbow.Formatting;
+﻿using System;
+using System.IO;
+using System.Linq;
+using Rainbow.Formatting;
 using Rainbow.Model;
 using Rainbow.Storage;
 using Rainbow.Tfs.SourceControl;
+using Sitecore.Diagnostics;
+using Sitecore.IO;
 
 namespace Rainbow.Tfs.Storage
 {
@@ -27,6 +32,51 @@ namespace Rainbow.Tfs.Storage
 		{
 			_sourceControlManager.DeletePreProcessing(path);
 			base.BeforeFilesystemDelete(path);
+		}
+
+		/// <summary>
+		/// Relies on TFS PendEdit to initiate the removal on the file system
+		/// </summary>
+		/// <param name="item">Item to be removed</param>
+		/// <returns></returns>
+		public override bool Remove(IItemData item)
+		{
+			Assert.ArgumentNotNull(item, "item");
+
+			using (new SfsDuplicateIdCheckingDisabler())
+			{
+				IItemMetadata itemToRemove = GetItemForGlobalPath(item.Path, item.Id);
+
+				if (itemToRemove == null) return false;
+
+				var descendants = GetDescendants(item, true).Concat(new[] { itemToRemove }).OrderByDescending(desc => desc.Path).ToArray();
+
+				foreach (var descendant in descendants)
+				{
+					lock (FileUtil.GetFileLock(descendant.SerializedItemId))
+					{
+						BeforeFilesystemDelete(descendant.SerializedItemId);
+						AfterFilesystemDelete(descendant.SerializedItemId);
+
+						var childrenDirectory = Path.ChangeExtension(descendant.SerializedItemId, null);
+
+						if (Directory.Exists(childrenDirectory))
+						{
+							BeforeFilesystemDelete(childrenDirectory);
+							AfterFilesystemDelete(childrenDirectory);
+						}
+
+						var shortChildrenDirectory = Path.Combine(PhysicalRootPath, descendant.Id.ToString());
+						if (Directory.Exists(shortChildrenDirectory))
+						{
+							BeforeFilesystemDelete(shortChildrenDirectory);
+							AfterFilesystemDelete(shortChildrenDirectory);
+						}
+					}
+				}
+			}
+
+			return true;
 		}
 	}
 }
