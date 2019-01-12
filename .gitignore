@@ -23,3 +23,6 @@ packages/*
 !packages/repositories.config
 Build/*.nupkg
 
+lib/Sitecore.Kernel.dll
+lib/Rainbow.dll
+.vs/

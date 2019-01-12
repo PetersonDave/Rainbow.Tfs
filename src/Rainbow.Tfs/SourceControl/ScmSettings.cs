@@ -5,6 +5,7 @@ namespace Rainbow.Tfs.SourceControl
 		public string Username { get; set; }
 		public string Domain { get; set; }
 		public string Password { get; set; }
-		public string ApplicationRootPath { get; set; }
-	}
+        public string ApplicationRootPath { get; set; }
+	    public string TfsUrl { get; set; }
+    }
 }

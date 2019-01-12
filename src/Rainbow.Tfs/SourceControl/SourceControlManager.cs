@@ -12,18 +12,20 @@ namespace Rainbow.Tfs.SourceControl
 		private string _username;
 		private string _password;
 		private string _domain;
+	    private string _tfsUrl;
 
-		private const string UsernameKey = "Rainbow.Tfs.Login";
+        private const string UsernameKey = "Rainbow.Tfs.Login";
 		private const string PasswordKey = "Rainbow.Tfs.Password";
 		private const string DomainKey = "Rainbow.Tfs.Domain";
+	    private const string TfsUrlKey = "Rainbow.Tfs.TfsUrl";
 
-		protected string Username
+        protected string Username
 		{
 			get
 			{
 				if (!string.IsNullOrEmpty(_username)) return _username;
 
-				var configSetting = Settings.GetSetting(UsernameKey);
+				var configSetting = Sitecore.Configuration.Settings.GetSetting(UsernameKey);
 				_username = configSetting;
 
 				return _username;
@@ -36,7 +38,7 @@ namespace Rainbow.Tfs.SourceControl
 			{
 				if (!string.IsNullOrEmpty(_password)) return _password;
 
-				var configSetting = Settings.GetSetting(PasswordKey);
+				var configSetting = Sitecore.Configuration.Settings.GetSetting(PasswordKey);
 				_password = configSetting;
 
 				return _password;
@@ -49,20 +51,34 @@ namespace Rainbow.Tfs.SourceControl
 			{
 				if (!string.IsNullOrEmpty(_domain)) return _domain;
 
-				var configSetting = Settings.GetSetting(DomainKey);
+				var configSetting = Sitecore.Configuration.Settings.GetSetting(DomainKey);
 				_domain = configSetting;
 
 				return _domain;
 			}
 		}
 
-		private ScmSettings GetSettings()
+	    protected string TfsUrl
+        {
+	        get
+	        {
+	            if (!string.IsNullOrEmpty(_tfsUrl)) return _tfsUrl;
+
+	            var configSetting = Sitecore.Configuration.Settings.GetSetting(TfsUrlKey);
+	            _tfsUrl = configSetting;
+
+	            return _tfsUrl;
+	        }
+	    }
+
+        private ScmSettings GetSettings()
 		{
 			return new ScmSettings()
 			{
 				Domain = Domain,
 				Password = Password,
 				Username = Username,
+                TfsUrl = TfsUrl,
 				ApplicationRootPath = HttpContext.Current.Server.MapPath("/")
 			};
 		}
@@ -70,7 +86,7 @@ namespace Rainbow.Tfs.SourceControl
 		public SourceControlManager()
 		{
 			var settings = GetSettings();
-			SourceControlSync = new FileSyncTfs(settings.Username, settings.Password, settings.Domain);
+			SourceControlSync = new FileSyncTfs(settings.Username, settings.Password, settings.Domain, settings.TfsUrl);
 		}
 
 		public SourceControlManager(ISourceControlSync sourceControlSync)

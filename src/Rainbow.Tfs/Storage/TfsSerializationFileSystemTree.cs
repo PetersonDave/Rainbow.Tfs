@@ -40,8 +40,8 @@ namespace Rainbow.Tfs.Storage
 		/// </summary>
 		/// <param name="item">Item to be removed</param>
 		/// <returns></returns>
-		public override bool Remove(IItemData item)
-		{
+		public override bool Remove(IItemMetadata item)
+        {
 			Assert.ArgumentNotNull(item, "item");
 
 			using (new SfsDuplicateIdCheckingDisabler())

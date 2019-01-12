@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Net;
 using System.Web;
+using Microsoft.TeamFoundation.Client;
 using Microsoft.TeamFoundation.VersionControl.Client;
+using Microsoft.VisualStudio.Services.Client;
+using Microsoft.VisualStudio.Services.Common;
 
 namespace Rainbow.Tfs.SourceControl
 {
@@ -12,11 +15,22 @@ namespace Rainbow.Tfs.SourceControl
 
 		public bool AllowFileSystemClear { get { return false; } }
 
-		public FileSyncTfs(string username, string password, string domain)
+		public FileSyncTfs(string username, string password, string domain, string tfsUrl)
 		{
 			_networkCredential = new NetworkCredential(username, password, domain);
 
-			var applicationRootPath = HttpContext.Current.Server.MapPath("/");
+            //fix for VS2017 / tfs 15
+		    Microsoft.VisualStudio.Services.Common.WindowsCredential winCred = new Microsoft.VisualStudio.Services.Common.WindowsCredential(_networkCredential);
+		    VssCredentials vssCred = new VssClientCredentials(winCred)
+            {
+		        PromptType = CredentialPromptType.DoNotPrompt
+		    };
+		    Uri tfsUri = new Uri(tfsUrl);
+		    TfsTeamProjectCollection teamProjectCollection = TfsTeamProjectCollectionFactory.GetTeamProjectCollection(tfsUri, vssCred);
+		    VersionControlServer tfServer = teamProjectCollection.GetService<VersionControlServer>();
+		    Workstation.Current.EnsureUpdateWorkspaceInfoCache(tfServer, tfServer.AuthorizedUser);
+
+            var applicationRootPath = HttpContext.Current.Server.MapPath("/");
 			_workspaceInfo = Workstation.Current.GetLocalWorkspaceInfo(applicationRootPath);
 			AssertWorkspace(_workspaceInfo, applicationRootPath);
 
